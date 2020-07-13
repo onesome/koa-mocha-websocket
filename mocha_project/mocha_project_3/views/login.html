@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>登录</h1>
+<form action="/singin" method="POST">
+    <span>账号</span>
+    <input type='text' name='user' />
+    <span>密码</span><input type='password' name='password' />
+    <input type='submit' />
+</form>
+{% endblock %}
+

@@ -1,0 +1,20 @@
+{
+    "name": "koa2_project_1",
+    "version": "1.0.0",
+    "description": "处理不同url",
+    "author": "wh",
+    "keywords": [
+        "koa",
+        "async",
+        "url"
+    ],
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "koa": "2.12.0",
+        "koa-bodyparser": "^4.3.0",
+        "koa-router": "^9.0.1",
+        "nunjucks": "^3.2.1"
+    }
+}

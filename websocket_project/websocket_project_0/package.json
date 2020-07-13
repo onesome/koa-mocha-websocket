@@ -1,0 +1,13 @@
+{
+    "name": "websocket_project_0",
+    "version": "1.0.0",
+    "author": "wh",
+    "description": "websocket的例子",
+    "main": "app.js",
+    "scripts": {
+        "start":"node app.js"
+    },
+    "dependencies": {
+        "ws": "^7.3.0"
+    }
+}

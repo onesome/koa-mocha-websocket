@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>我是欢迎页</h1>
+
+<div>
+    <h3>人员列表</h3>
+    <ul id="userList"></ul>
+    <h3>信息列表</h3>
+    <ul id="messageList"></ul>
+    <h3>信息输入</h3>
+    <input type="text" id="nowInput">
+    <button id="sendText">发送</button>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    // 简单的在线聊天室
+    window.onload=function(){
+        // js start
+    var ws=new WebSocket('ws://localhost:3003/ws/chat');
+    console.log(ws);
+    ws.onopen=function(res){
+        console.log(res);
+    }
+    var userArr=[];
+    ws.onmessage=function(res){
+        // this.send("hello")
+        console.log("onmessage",res);
+        var resData=JSON.parse(res.data);
+        console.log("onmessage",resData);
+        if(resData.type=="join"){ //新加入的人员
+            document.getElementById("userList").innerHTML+=`<li>${resData.user.name}</li>`;
+            userArr.push(resData.user.name);
+            console.log("join",userArr);
+        }else if(resData.type=="list"){//用户列表（只在新登录的时候执行并显示一次）
+            var lis="";
+            userArr=[];
+            resData.data.forEach((item) => {
+                lis+=`<li>${item.name}</li>`;
+                userArr.push(item.name);
+            });
+            document.getElementById("userList").innerHTML=lis;
+        }else if(resData.type=="chat"){//发送的实时数据
+            console.log("chat")
+            var msgLi=`<li>${resData.user.name}：${resData.data}</li>`;
+            document.getElementById("messageList").innerHTML+=msgLi;
+        }else if(resData.type=="closed"){//用户退出
+            console.log(resData.user);
+            var delUserArr=userArr.splice(userArr.indexOf(resData.user.name),1);
+            console.log(userArr.length)
+            var lis="";
+            userArr.forEach((item) => {
+                lis+=`<li>${item}</li>`;
+            });
+            document.getElementById("userList").innerHTML=lis;
+            console.log("closed:",userArr);
+        }
+       
+    }
+    // 发送输入的内容
+    document.getElementById("sendText").onclick=function(){
+        var mesageNow=document.getElementById("nowInput").value;
+        ws.send(mesageNow);
+    }
+
+    // js end
+    }
+
+   
+</script>
+{% endblock %}   

@@ -1,0 +1,19 @@
+{
+    "name": "macha_project_1",
+    "description": "简单使用mocha测试框架的应用",
+    "keywords": [
+        "mocha",
+        "test"
+    ],
+    "author": "wh",
+    "main": "hello.js",
+    "scripts": {
+        "test": "mocha"
+    },
+    "devDependencies": {
+        "mocha": "^8.0.1"
+    },
+    "dependencies": {
+        "mz": "^2.7.0"
+    }
+}
